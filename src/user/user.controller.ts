@@ -12,7 +12,7 @@ export class UserController {
   constructor(private readonly userService: UserService) {}
 
   @UseGuards(JwtAuthGuard, RoleGuard)
-  @Roles('admin')
+  @Roles(Role.ADMIN)
   @Get('/')
   async getAllUsers(
     @Req() request: Request,

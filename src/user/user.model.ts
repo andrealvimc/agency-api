@@ -1,9 +1,14 @@
 import { Prisma, User as UserPrisma } from '@prisma/client';
 
-// "ADMIN" | "AGENCY" | "CUSTOMER" | "MANAGER" | "SELLER"
 export class User implements Prisma.UserCreateInput {
+  id?: string;
   email: string;
   name: string;
   password: string;
   role: string;
+  cpf: string;
+  address: string;
+  phone: string;
+  // agency?: Prisma.AgencyCreateNestedOneWithoutUserInput;
+  agencyId?: string;
 }
