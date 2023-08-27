@@ -4,8 +4,8 @@ import { Request, Response } from 'express';
 import { UserService } from './user.service';
 import { Roles } from 'src/authentication/roles.decorator';
 import { Role } from 'src/authentication/enums';
-import { JwtAuthGuard } from 'src/authentication/authentication.guard';
-import { RoleGuard } from 'src/authentication/role.guard';
+import { RoleGuard } from 'src/authentication/guards/role.guard';
+import { JwtAuthGuard } from 'src/authentication/guards/authentication.guard';
 
 @Controller('/users')
 export class UserController {

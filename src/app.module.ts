@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { UserModule } from './user/user.module';
 import { AuthenticationModule } from './authentication/authentication.module';
-import { RoleGuard } from './authentication/role.guard';
+import { RoleGuard } from './authentication/guards/role.guard';
 
 @Module({
   imports: [UserModule, AuthenticationModule],
