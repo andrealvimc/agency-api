@@ -1,5 +1,13 @@
 /* eslint-disable prettier/prettier */
-import { Body, Controller, Get, Post, Req, Res, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Post,
+  Req,
+  Res,
+  UseGuards,
+} from '@nestjs/common';
 import { Request, Response } from 'express';
 
 import { AgencyService } from './agency.service';
@@ -23,7 +31,6 @@ export class AgencyController {
     @Req() request: Request,
     @Res() response: Response,
   ): Promise<any> {
-
     const agencies = await this.agencyService.getAgencies();
 
     return response.status(200).json(agencies);
@@ -37,8 +44,8 @@ export class AgencyController {
     @Res() response: Response,
     @UserReq() user: User,
   ) {
+    console.log(request.hostname, 'ALVIM');
     try {
-     
       const agencies = await this.agencyService.getMyAgencies(user.email);
 
       return response.status(200).json(agencies);
@@ -50,8 +57,10 @@ export class AgencyController {
   @UseGuards(JwtAuthGuard, RoleGuard)
   @Roles(Role.AGENCY, Role.ADMIN)
   @Get('/:id')
-  async getAgencyById(@Req() request: Request,
-    @Res() response: Response): Promise<any>{
+  async getAgencyById(
+    @Req() request: Request,
+    @Res() response: Response,
+  ): Promise<any> {
     try {
       const { id } = request.params;
 
@@ -70,31 +79,29 @@ export class AgencyController {
     @Req() request: Request,
     @Res() response: Response,
     @Body() createAgencyDto: CreateAgencyDto,
-  ): Promise<any>{
+  ): Promise<any> {
     try {
       const result = await this.agencyService.createAgency(createAgencyDto);
 
       return response.status(200).json(result);
-
     } catch (error) {
       return response.status(400).json({ message: error.message });
     }
-
   }
 
   @UseGuards(JwtAuthGuard, RoleGuard)
   @Roles(Role.AGENCY)
   @Post('/create-customer')
-  async createCustomer( @Req() request: Request,
+  async createCustomer(
+    @Req() request: Request,
     @Res() response: Response,
     @UserReq() user: User,
     @Body() createCustomerDto: CreateCustomerDto,
-    ): Promise<any>{
+  ): Promise<any> {
     try {
       const result = await this.agencyService.createCustomer(createCustomerDto);
 
       return response.status(200).json(result);
-
     } catch (error) {
       return response.status(400).json({ message: error.message });
     }

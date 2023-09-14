@@ -23,19 +23,23 @@ model User {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  agency   Agency? @relation(fields: [agencyId], references: [id])
-  agencyId String?
+  agency     Agency? @relation(fields: [agencyId], references: [id])
+  agencyId   String?
+  agencyRole String? // (seller || manager)
 }
 
+// model ConfigAgency
+
 model Agency {
-  id      String @id @default(uuid())
-  name    String
-  address String
-  phone   String
-  email   String
-  cnpj    String @unique
-  ownerId String @unique
-  User    User[]
+  id          String @id @default(uuid())
+  name        String
+  nameFantasy String
+  address     String
+  phone       String
+  email       String
+  document    String @unique
+  ownerId     String @unique
+  User        User[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

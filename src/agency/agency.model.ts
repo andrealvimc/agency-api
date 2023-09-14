@@ -7,7 +7,6 @@ export class Agency implements Prisma.AgencyCreateInput {
   address: string;
   phone: string;
   email: string;
-  cnpj: string;
-
-  // owner: Prisma.;
+  document: string;
+  nameFantasy: string;
 }

@@ -9,6 +9,6 @@ export class User implements Prisma.UserCreateInput {
   cpf: string;
   address: string;
   phone: string;
-  // agency?: Prisma.AgencyCreateNestedOneWithoutUserInput;
   agencyId?: string;
+  agencyRole?: string;
 }

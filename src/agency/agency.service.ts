@@ -38,14 +38,14 @@ export class AgencyService {
     const createAgency = new CreateAgencyDto();
     createAgency.name = createAgencyDto.name;
     createAgency.email = createAgencyDto.email;
-    createAgency.cnpj = createAgencyDto.cnpj;
+    createAgency.document = createAgencyDto.document;
     createAgency.phone = createAgencyDto.phone;
     createAgency.address = createAgencyDto.address;
     createAgency.ownerEmail = createAgencyDto.ownerEmail;
-    // const { email, name, ownerEmail, cnpj, phone, address } = createAgencyDto;
+    createAgency.nameFantasy = createAgencyDto.nameFantasy;
 
     const hasExistsAgency = await this.prismaService.agency.findUnique({
-      where: { cnpj: createAgency.cnpj },
+      where: { document: createAgency.document },
     });
 
     if (hasExistsAgency) {
@@ -64,7 +64,8 @@ export class AgencyService {
       data: {
         name: createAgency.name,
         email: createAgency.email,
-        cnpj: createAgency.cnpj,
+        document: createAgency.document,
+        nameFantasy: createAgency.nameFantasy,
         phone: createAgency.phone,
         address: createAgency.address,
         ownerId: hasExistsUser.id,
@@ -92,10 +93,9 @@ export class AgencyService {
     createCustomer.email = createCustomerDto.email;
     createCustomer.cpf = createCustomerDto.cpf;
     createCustomer.agencyId = createCustomerDto.agencyId;
+    // createCustomer.agencyRole = '';
 
-    const user = await this.prismaService.user.findUnique({
-      where: { email: createCustomer.email },
-    });
+    const user = await this.userService.getUserByEmail(createCustomer.email);
 
     if (user) {
       throw new Error('Email already exists');
@@ -112,6 +112,7 @@ export class AgencyService {
       phone: '',
       password: await bcrypt.hash(password, 10),
       role: Role.CUSTOMER,
+      agencyRole: 'seller',
     };
 
     const customer = await this.userService.create(data);

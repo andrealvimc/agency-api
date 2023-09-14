@@ -28,8 +28,9 @@ export class AuthenticationController {
     }
   }
 
-  @UseGuards(JwtAuthGuard, RoleGuard)
-  @Roles(Role.ADMIN)
+  // TODO: DESATIVAR API REGISTER
+  // @UseGuards(JwtAuthGuard, RoleGuard)
+  // @Roles(Role.ADMIN)
   @Post('/register')
   async register(
     @Req() request: Request,
