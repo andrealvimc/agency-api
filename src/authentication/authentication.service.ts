@@ -39,6 +39,7 @@ export class AuthenticationService {
       name: user.name,
       role: user.role,
       agencyId: user.agencyId,
+      agencyRole: user.agencyRole,
       token: this.jwtService.sign({ email, role: user.role }),
     };
   }
