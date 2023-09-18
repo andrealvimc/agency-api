@@ -13,7 +13,7 @@ async function bootstrap() {
   // app.use(csurf());
 
   const cors: CorsOptions = {
-    origin: ['http://localhost:3000'],
+    origin: ['http://localhost:3000', 'https://app.agenciaescalavel.com.br'],
     methods: 'GET, HEAD, PUT, PATCH, POST, DELETE',
   };
 
