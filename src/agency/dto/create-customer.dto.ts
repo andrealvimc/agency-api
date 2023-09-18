@@ -16,6 +16,6 @@ export class CreateCustomerDto {
   @IsString()
   agencyId: string;
 
-  // @IsString()
-  // agencyRole: string;
+  @IsString()
+  agencyRole: string;
 }

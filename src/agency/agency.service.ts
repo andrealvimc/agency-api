@@ -72,6 +72,11 @@ export class AgencyService {
       },
     });
 
+    await this.prismaService.user.update({
+      where: { id: hasExistsUser.id },
+      data: { agencyId: agency.id, agencyRole: 'manager' },
+    });
+
     return agency;
   }
 
@@ -93,7 +98,7 @@ export class AgencyService {
     createCustomer.email = createCustomerDto.email;
     createCustomer.cpf = createCustomerDto.cpf;
     createCustomer.agencyId = createCustomerDto.agencyId;
-    // createCustomer.agencyRole = '';
+    createCustomer.agencyRole = createCustomerDto.agencyRole;
 
     const user = await this.userService.getUserByEmail(createCustomer.email);
 
