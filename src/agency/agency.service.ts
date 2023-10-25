@@ -128,4 +128,20 @@ export class AgencyService {
       password,
     };
   }
+
+  async deleteAgency(id: string): Promise<boolean> {
+    const agency = await this.prismaService.agency.findUnique({
+      where: { id },
+    });
+
+    if (!agency) {
+      throw new Error('Agency not found');
+    }
+
+    await this.prismaService.agency.delete({
+      where: { id },
+    });
+
+    return true;
+  }
 }

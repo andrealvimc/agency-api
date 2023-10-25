@@ -2,6 +2,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   Post,
   Req,
@@ -19,6 +20,7 @@ import { CreateAgencyDto } from './dto/create-agency.dto';
 import { UserReq } from 'src/user/user.decorator';
 import { User } from 'src/user/user.model';
 import { CreateCustomerDto } from './dto/create-customer.dto';
+import { DeleteAgencyDto } from './dto/delete-agency.dto';
 
 @Controller('agency')
 export class AgencyController {
@@ -82,6 +84,24 @@ export class AgencyController {
   ): Promise<any> {
     try {
       const result = await this.agencyService.createAgency(createAgencyDto);
+
+      return response.status(200).json(result);
+    } catch (error) {
+      return response.status(400).json({ message: error.message });
+    }
+  }
+
+  @UseGuards(JwtAuthGuard, RoleGuard)
+  @Roles(Role.ADMIN)
+  @Delete('')
+  async deleteAgency(
+    @Req() request: Request,
+    @Res() response: Response,
+    @Body() deleteAgencyDto: DeleteAgencyDto,
+  ): Promise<any> {
+    try {
+      const result = await this.agencyService.deleteAgency(deleteAgencyDto.id);
+      console.log(result);
 
       return response.status(200).json(result);
     } catch (error) {
