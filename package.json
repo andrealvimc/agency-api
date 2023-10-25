@@ -2,7 +2,7 @@
   "name": "api",
   "version": "0.0.1",
   "description": "",
-  "author": "André Alvim - <andre@alvin.net>",
+  "author": "André Alvim - <andre@alvim.net>",
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
@@ -36,7 +36,7 @@
     "nest-access-control": "^3.0.0",
     "passport": "^0.6.0",
     "passport-jwt": "^4.0.1",
-    "prisma": "^5.2.0",
+    "prisma": "^5.5.0",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
     "rxjs": "^7.2.0"
