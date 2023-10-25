@@ -80,7 +80,6 @@ export class AgencyController {
     @Res() response: Response,
     @Body() createAgencyDto: CreateAgencyDto,
   ): Promise<any> {
-    console.log(request.headers, 'passou aq');
     try {
       const result = await this.agencyService.createAgency(createAgencyDto);
 
