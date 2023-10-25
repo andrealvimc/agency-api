@@ -6,7 +6,6 @@ import { UserService } from 'src/user/user.service';
 import { CreateAgencyDto } from './dto/create-agency.dto';
 import { CreateCustomerDto } from './dto/create-customer.dto';
 import { Role } from 'src/authentication/enums';
-import { Prisma } from '@prisma/client';
 import { User } from 'src/user/user.model';
 
 @Injectable()
