@@ -58,3 +58,37 @@ model Plan {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
+
+model Category {
+  id          String @id @default(uuid())
+  name        String @unique
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  Page        Page[]
+  Creative    Creative[]
+}
+
+model Page {
+  id          String @id @default(uuid())
+  name String
+  // others page items
+
+  categoryId String
+  category   Category @relation(fields: [categoryId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Creative {
+  id          String @id @default(uuid())
+  name String
+  // others page items
+
+  categoryId String
+  category   Category @relation(fields: [categoryId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
