@@ -1,6 +1,3 @@
-/*
-https://docs.nestjs.com/controllers#controllers
-*/
 
 import {
   Body,
@@ -13,29 +10,32 @@ import {
 } from '@nestjs/common';
 
 import { Request, Response } from 'express';
-
-import { Role } from 'src/authentication/enums';
+import { CreativeService } from './creative.service';
 import { JwtAuthGuard } from 'src/authentication/guards/authentication.guard';
 import { RoleGuard } from 'src/authentication/guards/role.guard';
 import { Roles } from 'src/authentication/roles.decorator';
-import { CreateCategoryDto } from './dto/create-category.dto';
-import { CategoryService } from './category.service';
+import { Role } from 'src/authentication/enums';
+import { CreateCreativeDto } from './dto/create-creative.dto';
 
-@Controller('category')
-export class CategoryController {
-  constructor(private categoryService: CategoryService) {}
+
+@Controller('creative')
+export class CreativeController {
+
+  constructor(
+    private creativeService: CreativeService,
+  ) {}
 
   @UseGuards(JwtAuthGuard, RoleGuard)
   @Roles(Role.ADMIN)
   @Post('')
-  async createCategory(
+  async createCreative( 
     @Req() request: Request,
     @Res() response: Response,
-    @Body() createCategoryDto: CreateCategoryDto,
+    @Body() createCreativeDto: CreateCreativeDto,
   ): Promise<any> {
     try {
-      const result = await this.categoryService.createCategory(
-        createCategoryDto,
+      const result = await this.creativeService.createCreative(
+        createCreativeDto,
       );
       
       return response.status(200).json(result);
@@ -44,16 +44,16 @@ export class CategoryController {
     }
   }
 
+
   @UseGuards(JwtAuthGuard, RoleGuard)
   @Roles(Role.ADMIN, Role.AGENCY, Role.MANAGER)
   @Get('')
-  async getCategories(
+  async getCreatives(
     @Req() request: Request,
     @Res() response: Response,
   ): Promise<any> {
-    const agencies = await this.categoryService.getCategories();
+    const agencies = await this.creativeService.getCreatives();
 
     return response.status(200).json(agencies);
   }
-
 }

@@ -89,6 +89,8 @@ model Creative {
   categoryId String
   category   Category @relation(fields: [categoryId], references: [id])
 
+  format   String // stories, feed
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }

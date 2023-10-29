@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { Controller, Get, Req, Res, UseGuards } from '@nestjs/common';
 import { Request, Response } from 'express';
 
@@ -6,6 +7,9 @@ import { Roles } from 'src/authentication/roles.decorator';
 import { Role } from 'src/authentication/enums';
 import { RoleGuard } from 'src/authentication/guards/role.guard';
 import { JwtAuthGuard } from 'src/authentication/guards/authentication.guard';
+import { UserReq } from './user.decorator';
+import { User } from './user.model';
+// import { User } from '@prisma/client';
 
 @Controller('/users')
 export class UserController {
@@ -26,6 +30,24 @@ export class UserController {
 
         return rest;
       });
+      return response.status(200).json(result);
+    } catch (error) {
+      return response.status(500).json({ error: 'Internal Server error' });
+    }
+  }
+
+   @UseGuards(JwtAuthGuard, RoleGuard)
+   @Get('/me')
+   async getMe(
+    @Req() request: Request,
+    @Res() response: Response,
+    @UserReq() user: User,
+  ): Promise<any> { 
+    try {
+      console.log(user, ' user')
+      const result = await this.userService.getMe(user.userId);
+      
+
       return response.status(200).json(result);
     } catch (error) {
       return response.status(500).json({ error: 'Internal Server error' });

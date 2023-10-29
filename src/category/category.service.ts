@@ -5,6 +5,7 @@ https://docs.nestjs.com/providers#services
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma.service';
 import { CreateCategoryDto } from './dto/create-category.dto';
+import { Category } from '@prisma/client';
 
 
 @Injectable()
@@ -14,7 +15,9 @@ export class CategoryService {
   ) {}
 
   async getCategories(): Promise<any> {
-    return await this.prismaService.category.findMany();
+    const categories = await this.prismaService.category.findMany()
+
+    return categories;
   }
 
   async createCategory(createCategoryDto: CreateCategoryDto): Promise<any> {
@@ -35,5 +38,17 @@ export class CategoryService {
     });
 
     return category;
+  }
+
+  async getCategoryById(categoryId: string): Promise<Category> {
+    const category = await this.prismaService.category.findUnique({
+      where: {
+        id: categoryId
+      }
+    })
+
+    if(!category) throw new Error('Category not found');
+
+    return category
   }
 }

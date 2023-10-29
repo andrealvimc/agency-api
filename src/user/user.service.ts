@@ -31,4 +31,14 @@ export class UserService {
 
     return this.prisma.user.create({ data });
   }
+
+  async getMe(id: string): Promise<User> { 
+    const user = await this.prisma.user.findUnique({ where: { id } });
+
+    if (!user) {
+      throw new Error('User not found');
+    }
+
+    return user;
+  }
 }
