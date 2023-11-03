@@ -12,8 +12,14 @@ async function bootstrap() {
 
   // app.use(csurf());
 
+  // TODO: ADICIONAR UM VALIDADOR WHITELIST PARA OS CLIENTES
   const cors: CorsOptions = {
-    origin: ['http://localhost:3000', 'https://app.agenciaescalavel.com.br'],
+    origin: [
+      'http://localhost:3000',
+      'https://app.agenciaescalavel.com.br',
+      'https://lp.agencia123.com.br',
+      'https://landingpage-test-xi.vercel.app',
+    ],
     methods: 'GET, HEAD, PUT, PATCH, POST, DELETE',
   };
 

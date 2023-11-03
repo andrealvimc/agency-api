@@ -55,7 +55,23 @@ model Account {
   colors String[]
   logo   String[]
   alerts Boolean
-  User   User[]
+
+  // others account items
+  User User[]
+  Lead Lead[]
+}
+
+model Lead {
+  id    String @id @default(uuid())
+  name  String
+  email String
+  phone String
+  // salvar o json de dados que podem ser randoms
+
+  accountId String
+  account   Account @relation(fields: [accountId], references: [id])
+
+  status String @default("new") // (new, contacted, scheduled, sold, canceled)
 }
 
 model Plan {

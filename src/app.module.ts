@@ -1,3 +1,4 @@
+import { LeadModule } from './lead/lead.module';
 import { AccountModule } from './account/account.module';
 import { CategoryModule } from './category/category.module';
 import { Module } from '@nestjs/common';
@@ -9,6 +10,7 @@ import { CreativeModule } from './creative/creative.module';
 
 @Module({
   imports: [
+    LeadModule,
     AccountModule,
     CreativeModule,
     CategoryModule,
