@@ -32,12 +32,35 @@ export class UserService {
     return this.prisma.user.create({ data });
   }
 
-  async getMe(id: string): Promise<User> { 
+  async getMe(id: string): Promise<User> {
     const user = await this.prisma.user.findUnique({ where: { id } });
 
     if (!user) {
       throw new Error('User not found');
     }
+
+    return user;
+  }
+
+  async getUserById(userId: string) {
+    const user = await this.prisma.user.findUnique({
+      where: {
+        id: userId,
+      },
+    });
+
+    if (!user) throw new Error('User not found');
+
+    return user;
+  }
+
+  async updateUser(userId: string, data: User) {
+    const user = await this.prisma.user.update({
+      where: {
+        id: userId,
+      },
+      data,
+    });
 
     return user;
   }

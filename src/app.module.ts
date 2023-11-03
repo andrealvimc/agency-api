@@ -1,3 +1,4 @@
+import { AccountModule } from './account/account.module';
 import { CategoryModule } from './category/category.module';
 import { Module } from '@nestjs/common';
 import { UserModule } from './user/user.module';
@@ -7,7 +8,14 @@ import { AgencyModule } from './agency/agency.module';
 import { CreativeModule } from './creative/creative.module';
 
 @Module({
-  imports: [CreativeModule, CategoryModule, UserModule, AuthenticationModule, AgencyModule],
+  imports: [
+    AccountModule,
+    CreativeModule,
+    CategoryModule,
+    UserModule,
+    AuthenticationModule,
+    AgencyModule,
+  ],
   controllers: [],
   providers: [
     {

@@ -26,9 +26,11 @@ model User {
   agency     Agency? @relation(fields: [agencyId], references: [id])
   agencyId   String?
   agencyRole String? // (seller || manager)
-}
 
-// model ConfigAgency
+  // only for customers (agencyRole: customer & role: customer)
+  accountId String?
+  account   Account? @relation(fields: [accountId], references: [id])
+}
 
 model Agency {
   id          String @id @default(uuid())
@@ -46,6 +48,16 @@ model Agency {
   Plan      Plan[]
 }
 
+// tabela para contas criadas pelas agencias (agencyRole: customer & role: customer)
+model Account {
+  id     String   @id @default(uuid())
+  domain String   @unique
+  colors String[]
+  logo   String[]
+  alerts Boolean
+  User   User[]
+}
+
 model Plan {
   id          String   @id @default(uuid())
   name        String
@@ -60,17 +72,17 @@ model Plan {
 }
 
 model Category {
-  id          String @id @default(uuid())
-  name        String @unique
+  id   String @id @default(uuid())
+  name String @unique
 
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-  Page        Page[]
-  Creative    Creative[]
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+  Page      Page[]
+  Creative  Creative[]
 }
 
 model Page {
-  id          String @id @default(uuid())
+  id   String @id @default(uuid())
   name String
   // others page items
 
@@ -82,14 +94,14 @@ model Page {
 }
 
 model Creative {
-  id          String @id @default(uuid())
+  id   String @id @default(uuid())
   name String
   // others page items
 
   categoryId String
   category   Category @relation(fields: [categoryId], references: [id])
 
-  format   String // stories, feed
+  format String // stories, feed
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

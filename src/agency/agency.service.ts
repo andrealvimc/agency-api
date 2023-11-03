@@ -116,7 +116,7 @@ export class AgencyService {
       phone: '',
       password: await bcrypt.hash(password, 10),
       role: Role.CUSTOMER,
-      agencyRole: 'seller',
+      agencyRole: 'customer',
     };
 
     const customer = await this.userService.create(data);
